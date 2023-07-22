@@ -17,7 +17,7 @@ Visual Studio Code (This package utilizes Live Sass Compiler extension)
   - Core WP files
   - wp-content
 
-- source
+- WordPress-Compiler
   - .git
   - .gitignore
   - package.json
