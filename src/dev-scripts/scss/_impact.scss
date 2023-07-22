@@ -1,0 +1,176 @@
+.page_impact{
+    background:white;
+
+    .fc_hero{
+        .content-container{
+            margin:170px auto 170px;
+
+            .left{
+                .eyebrows{
+                    color:$skyblue;
+                }
+            }
+
+            .title{
+                margin-bottom:40px;
+
+                span{
+                    display:inline-block;
+                    position:relative;
+
+                    &:before{
+                        background:url(/wp-content/uploads/2023/07/scribble-underline-2.png)no-repeat center;
+                        background-size:contain;
+                        aspect-ratio: 802 / 56;
+                        bottom:0;
+                        content:'';
+                        left:0;
+                        position:absolute;
+                        transform:translate3d(-6%, 100%, 0);
+                        width:130%;
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_cards_table{
+        background:none;
+        margin-top:-190px;
+        padding-bottom:100px;
+    }
+
+    .fc_impact_dropdown{
+        padding-top:0;
+        .title{
+            span{
+                display:inline-block;
+                position:relative;
+            }
+        }
+    }
+
+    .fc_4_stats{
+        .cta{
+            &.pill{
+                &.blue-override{
+
+                    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#4f9abc+0,2583bb+100 */
+                    background: rgb(79,154,188); /* Old browsers */
+                    background: -moz-linear-gradient(top,  rgba(79,154,188,1) 0%, rgba(37,131,187,1) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top,  rgba(79,154,188,1) 0%,rgba(37,131,187,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom,  rgba(79,154,188,1) 0%,rgba(37,131,187,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4f9abc', endColorstr='#2583bb',GradientType=0 ); /* IE6-9 */
+
+                    border-radius: 40px;
+                    font-family: 'Inter', sans-serif;
+                    font-weight:500;
+
+                    &:before{
+                        aspect-ratio:1 / 1;
+                        background:url(/wp-content/uploads/2023/07/icon-download.png)no-repeat center;
+                        background-size:contain;
+                        content:'';
+                        margin-right:10px;
+                        position:relative;
+                        width:20px;
+                        z-index:1;
+                    }
+
+                    &:after{
+                        background:#2583BB;
+                        transition:250ms transform;
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_home_map{
+        .header{
+            margin-bottom:30px;
+
+            .title{
+                font-size:20px;
+                font-family: 'Kalam', cursive;
+                font-weight:400;
+                letter-spacing: -0.02em;
+                position:relative;
+            }
+
+            &:after{
+                background: url(/wp-content/uploads/2023/07/scribble-underline-2.png) no-repeat center;
+                background-size: contain;
+                aspect-ratio: 802/56;
+                bottom: 0;
+                content: "";
+                left: 0;
+                position: absolute;
+                transform: translate3d(-19px, 15px, 0);
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (min-width:768px){
+    .page_impact{
+        .fc_hero{
+            height:auto;
+            .content-container{
+                margin:170px auto 230px;
+
+                .title{
+
+                    margin-bottom:60px;
+                }
+            }
+        }
+        
+        .fc_cards_table{
+            margin-top:-250px;
+        }
+
+        .fc_impact_dropdown{
+            .left{
+                max-width:500px;
+
+                .title{
+                    text-align:left;
+                }
+
+                .description{
+                    text-align:left;
+                }
+            }
+
+            .right{
+                .ctas{
+                    &:before{
+                        aspect-ratio:377 / 169;
+                        background:url(/wp-content/uploads/2023/07/scribble-arrow-right.png)no-repeat center;
+                        background-size:contain;
+                        content:'';
+                        position:absolute;
+                        transform:translate3d(-70%, 90%, 0) rotate(-20deg);
+                        width:200px;
+                    }
+                }
+            }
+        }
+
+        .fc_home_map{
+            .header{
+                margin-bottom:60px;
+
+                .title{
+                    font-size:33px;
+                }
+            }
+        }
+
+    }
+}
+
+
+

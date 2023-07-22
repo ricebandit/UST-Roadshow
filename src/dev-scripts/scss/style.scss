@@ -1,0 +1,64 @@
+/*
+FONTS
+*/
+
+.inter{
+    font-family: 'Inter', sans-serif;
+}
+
+.kalam{
+    font-family: 'Kalam', cursive;
+    letter-spacing: -0.02em;
+}
+
+.opensans{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+/* 
+COLORS
+*/
+$darkblue: #003055;
+$royalblue: #056AAE;
+$lightgray: #D9D9D9;
+$gray:#6F6F6F;
+$darkgray: #222222;
+$blue:#056AAE;
+$skyblue:#A3DDFF;
+$red: #CD2E2C;
+$darkred:#9D1C20;
+$yellow: #FDB813;
+
+/*
+BASE UNDERSCORES THEME CSS
+*/
+@import '_underscores';
+
+
+/*
+CUSTOM BOOTSTRAP
+*/
+@import "../../../node_modules/bootstrap/scss/_functions";
+@import "../../../node_modules/bootstrap/scss/_variables";
+@import "../../../node_modules/bootstrap/scss/_maps";
+
+
+
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+
+
+@import '_slick';
+@import '_magnificpopup';
+@import '_global';
+@import '_navigation';
+@import '_flexiblecontent';
+@import '_footer';
+@import '_home';
+@import '_about';
+@import '_press';
+@import '_impact';
+@import '_state';
+@import '_issues';
+@import '_event';

@@ -1,0 +1,193 @@
+
+
+.single-state{
+    background:white;
+
+    .fc_hero{
+        .content-container{
+            .left{
+
+                .title{
+                    position:relative;
+
+                    &:before{
+                        aspect-ratio:802 / 56;
+                        background:url(/wp-content/uploads/2023/07/scribble-underline-2.png  )no-repeat center;
+                        background-size:contain;
+                        content:'';
+                        position:absolute;
+                        bottom:0;
+                        left:0;
+                        transform:translate3d(-6%, 61%, 0);
+                        width:213px;
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_4_stats{
+        background:white;
+        padding:61px 0;
+
+        .content-container{
+            .header{
+                .eyebrows{
+                    color:$darkblue;
+                }
+                .title{
+                    color:$darkblue;
+                    font-size:36px;
+                }
+                .description{
+                    color:$darkblue;
+                }
+
+                .ctas{
+                    .cta{
+                        &.clearpill{
+                            border:1px solid #108AD2;
+                            color:#108AD2;
+                            font-family: 'Inter', sans-serif;
+                            font-size:18px;
+                            font-weight:500;
+                            overflow:hidden;
+                            position:relative;
+
+                            &:before{
+                                aspect-ratio:1 / 1;
+                                background:url(/wp-content/uploads/2023/07/icon-download-blue.png)no-repeat center;
+                                background-size:contain;
+                                content:'';    margin-right: 10px;
+                                position: relative;
+                                width: 20px;
+                                z-index: 1;
+                            }
+
+                            &:after{
+                                aspect-ratio: 1/1;
+                                border-radius: 100px;
+                                background:rgba(16,138,210, 0.3);
+                                content: "";
+                                position: absolute;
+                                left: 50%;
+                                top: 50%;
+                                transform: scale(0) translate3d(-50%, -50%, 0);
+                                transform-origin: 0 0;
+                                transition: 800ms transform;
+                                width: 105%;
+                            }
+
+                            &:hover{
+                                &:after{
+                                    transform: scale(1) translate3d(-50%, -50%, 0);
+                                    transition:250ms transform;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .stat-container{
+            .stat{
+                p{
+                    color:$darkblue;
+                }
+
+                h1{
+                    &.stat-number{
+                        background: var(#108AD2, linear-gradient(180deg, #108AD2 0%, #2583BB 100%));
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: rgb(16,138,210);
+                    }
+
+                    &.property{
+                        color:$darkblue;
+                        font-size:28px;
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_past_events{
+        .content-container{
+            align-items:center;
+            display:flex;
+            flex-direction:column;
+        }
+    }
+
+    .fc_impact_dropdown{
+        background: linear-gradient(178deg, #056AAE 0%, #003055 100%);
+
+        .content-container{
+            .left{
+                .title{
+                    color:#fff;
+                }
+                .description{
+                    color:#fff;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width:768px){
+
+    .single-state{
+        .fc_hero{
+        
+            .content-container{
+    
+                .left{
+        
+                    .eyebrows{
+                        color:#fff;
+                    }
+        
+                    .title{
+                        margin-top:14px;
+
+                        &:before{
+                            transform:translate3d(-6%, 86%, 0);
+                            width:364px;
+                        }
+                    }
+
+                    .description{
+                        margin-top:39px;
+                    }
+                }
+            }
+        }
+
+        .fc_past_events{
+            .content-container{
+                align-items:center;
+                display:flex;
+                flex-direction:column;
+
+                .header{
+                    margin-bottom:40px;
+                    margin-top:111px;
+                    max-width:700px;
+
+                    .title{
+                        text-align:center;
+                    }
+
+                    .description{
+                        text-align:center;
+                    }
+                }
+            }
+        }
+
+    }
+}

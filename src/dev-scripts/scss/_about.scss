@@ -1,0 +1,21 @@
+.page_about{
+    .fc_hero{
+        .content-container{
+            margin:170px auto 20vw;
+        }
+    }
+
+    .fc_media_gallery{
+        margin-bottom:16vw;
+    }
+    
+}
+
+@media screen and (min-width:1024px){
+    .page_about{
+
+        .fc_media_gallery{
+            margin-bottom:160px;
+        }
+    }
+}

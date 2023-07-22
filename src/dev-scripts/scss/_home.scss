@@ -1,0 +1,200 @@
+.home{
+
+    .fc_hero_carousel{
+        
+        .carousel{
+            .panel{
+                .content-container{
+                    .header{
+                        &:before{
+                            background:url(/wp-content/uploads/2023/07/scribble-arrow.png)no-repeat center;
+                            background-size:contain;
+                            content:'';
+                            height:49px;
+                            left:0;
+                            opacity:0;
+                            pointer-events:none;
+                            position:absolute;
+                            top:18px;
+                            transform:translate3d(-150%, 0, 0);
+                            transition:800ms opacity 1000ms, 800ms transform 1000ms;
+                            width:115px;
+                        }
+                    }
+                }
+
+                &.slick-active{
+                    .content-container{
+                        .header{
+                            &:before{
+                                opacity:1;
+                                transform:translate3d(-120%, 0, 0);
+                                transition:800ms opacity 1200ms, 800ms transform 1200ms;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_home_map{
+        align-items:center;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        width:100%;
+
+        h1.title{
+            position:relative;
+
+            &:before{
+                aspect-ratio:126 / 122;
+                background:url(/wp-content/uploads/2023/07/scribble-blink.png)no-repeat center;
+                background-size:contain;
+                content:'';
+                right:0;
+                position:absolute;
+                top:0;
+                transform:translate3d(85%, -93%, 0);
+                width:74px;
+            }
+        }
+    }
+
+    .fc_past_events{
+    
+        .content-container{
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+
+            .header{
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                margin-top: 122px;
+                max-width: 700px;
+                position:relative;
+                text-align:center;
+
+                &:before{
+                    background:url(/wp-content/uploads/2023/07/downward-arrow-bottom.png)no-repeat center;
+                    background-size:contain;
+                    content: "";
+                    height: 213px;
+                    left: 50%;
+                    opacity:0;
+                    pointer-events:none;
+                    position: absolute;
+                    top: 0;
+                    transform: translate3d(-50%, -100%, 0);
+                    width: 46px;
+                }
+
+                .title{
+                    color:$darkblue;
+                }
+    
+                .description{
+                    color:#000;
+                }
+            }
+        }
+    }
+
+    .fc_4_stats{
+        
+        .content-container{
+            position:relative;
+            
+            &:before{
+                aspect-ratio:416 / 213;
+                background:url(/wp-content/uploads/2023/07/scribble-justthefacts.png)no-repeat center;
+                background-size:contain;
+                content:'';
+                position:absolute;
+                right:0;
+                top:0;
+                transform:translate3d(0, -100%, 0);
+                width:400px;
+            }
+    
+            .header{
+    
+                .title{
+    
+                    &:after{
+                        aspect-ratio:619 / 46;
+                        background:url(/wp-content/uploads/2023/07/scribble-underline.png)no-repeat center;
+                        background-size:contain;
+                        bottom:0;
+                        content:'';
+                        left:50%;
+                        position:absolute;
+                        transform:translate3d(-50%, 120%, 0);
+                        width:80%;
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_additional_articles{
+        .content-container{
+            .slides{
+                &:before{
+                    aspect-ratio:324 / 210;
+                    background:url(/wp-content/uploads/2023/07/scribble-double-stars.png)no-repeat center;
+                    background-size:contain;
+                    content:'';
+                    position:absolute;
+                    right:0;
+                    top:0;
+                    transform:translate3d(50%, -50%, 0);
+                    width:161px;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width:768px){
+    .home{
+
+        .fc_home_map{
+        
+            .content-container{
+        
+                .header{
+        
+                    &:before{
+                        background:url(/wp-content/uploads/2023/07/downward-arrow.png)no-repeat center;
+                        background-size:contain;
+                        content:'';
+                        height:213px;
+                        left:50%;
+                        position:absolute;
+                        top:0;
+                        transform:translate3d(-50%, -100%, 0);
+                        width:46px;
+                    }
+                }
+            }
+        }
+
+        .fc_past_events{
+    
+            .content-container{
+    
+                .header{
+    
+                    &:before{
+                        opacity:1;
+                    }
+                }
+            }
+        }
+    }
+}

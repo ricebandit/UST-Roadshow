@@ -1,0 +1,417 @@
+.single-event{
+    #header{
+        display: flex;
+        justify-content: center;
+        padding-bottom:43vw;
+        position: relative;
+        overflow: visible;
+        width: 100%;
+
+        &:before{
+            background:#FDB813;
+            bottom:0;
+            content:'';
+            height:13px;
+            left:0;
+            position:absolute;
+            width:100%;
+        }
+
+        .content-container{
+            display: flex;
+            flex-direction:column;
+            height: 100%;
+            justify-content: flex-start;
+            margin: 170px auto 80px;
+            position: relative;
+
+            .left{
+                width:100%;
+
+                .back{
+                    color:#fff;
+                    display:block;
+                    font-family: 'Open Sans', sans-serif;
+                    font-size: 12px;
+                    font-weight: 600;
+                    margin-bottom:15px;
+                    text-decoration:none;
+    
+                    &:before{
+                        aspect-ratio:43 / 16;
+                        background:url(/wp-content/uploads/2023/07/cta-skinnyarrow.png)no-repeat center;
+                        background-size:contain;
+                        content:'';
+                        display:inline-block;
+                        margin-right:16px;
+                        transform:rotate(180deg);
+                        width:21px;
+                    }
+                }
+
+                .event-type{
+                    align-items:flex-start;
+                    display:flex;
+                    justify-content:flex-start;
+    
+                    &.blitz{
+                        &:before{
+                            aspect-ratio:1 / 1; 
+                            background:url(/wp-content/uploads/2023/07/icon-powerhour-2.png)no-repeat center;
+                            background-size:contain;
+                            content:'';
+                            display:inline;
+                            width:32px;
+                        }
+                    }
+
+                    &.powerhour{
+                        display:flex;
+                        &:before{
+                            aspect-ratio:1 / 1; 
+                            background:url(/wp-content/uploads/2023/07/icon-powerhour-2.png)no-repeat center;
+                            background-size:contain;
+                            content:'';
+                            display:inline;
+                            width:32px;
+                        }
+                    }
+
+                    &.roadshow{
+                        display:flex;
+                        &:before{
+                            aspect-ratio:1 / 1; 
+                            background:url(/wp-content/uploads/2023/07/icon-powerhour-2.png)no-repeat center;
+                            background-size:contain;
+                            content:'';
+                            display:inline;
+                            width:32px;
+                        }
+                    }
+
+                    .info{
+                        margin-left:10px;
+
+                        p{
+                            color:white;
+                            line-height:16px;
+                            margin:0;
+    
+                        }
+                    }
+                }
+    
+                .eyebrows{
+                    color:$yellow;
+                    font-family: 'Kalam', cursive;
+                    font-size:24px;
+                    letter-spacing: -0.02em;
+                    margin-bottom:14px;
+                }
+        
+                .title{
+                    font-size: 36px;
+                    margin-top:28px;
+                    font-weight: 600;
+                    line-height: 42px;
+                    letter-spacing: -0.792px;
+                }
+        
+                .description{
+                    font-size:16px;
+                    margin-top:19px;
+                    line-height: 22px;
+                    letter-spacing: -0.208px;
+                }
+        
+                .cta-container{
+                    align-items:flex-start;
+                    display:flex;
+                    flex-direction:column;
+                    margin-top:34px;
+                }
+            }
+
+            .right{
+                position:relative;
+                width:100%;
+
+                .event-carousel{
+                    align-items:center;
+                    aspect-ratio: 708 / 567;
+                    display:flex;
+                    flex-direction:column;
+                    position:absolute;
+                    right:0;
+                    top:0;
+                    width:100%;
+                    
+
+                    .subnav{
+                        align-items:center;
+                        bottom:30px;
+                        display:flex;
+                        flex-direction:row;
+                        left:50%;
+                        margin-top:30px;
+
+                        &.hide{
+                            display:none;
+                        }
+                
+                        .arrow{
+                            cursor:pointer;
+                            position:relative;
+                            height:33px;
+                            transition: 500ms opacity;
+                            width:33px;
+                
+                            &.next{
+                                transform:rotate(180deg);
+                            }
+
+                            &.slick-disabled{
+                                opacity:0.5;
+                                pointer-events:none;
+
+                                .idle{
+                                    opacity:0;
+                                }
+
+                                .over{
+                                    opacity:1;
+                                }
+                            }
+                
+                            .idle,
+                            .over{
+                                height:100%;
+                                left:0;
+                                pointer-events:none;
+                                position:absolute;
+                                top:0;
+                                width:100%;
+                            }
+                
+                            .idle{
+                                opacity:1;
+                                transition:500ms opacity;
+                            }
+                
+                            .over{
+                                opacity:0;
+                                transition:500ms opacity;
+                            }
+                
+                            &:hover{
+                
+                                .idle{
+                                    opacity:0;
+                                    transition:600ms opacity;
+                                }
+                    
+                                .over{
+                                    opacity:1;
+                                    transition:600ms opacity;
+                                }
+                            }
+                        }
+                
+                        .dots{
+                            margin:0 15px;
+                
+                            .slick-dots{
+                                display:flex;
+                                li{
+                                    align-items:center;
+                                    display: none;
+                                    height: 14px;
+                                    margin:0 8px;
+                                    transition:80ms width, 80ms height;
+                                    width:14px;
+                
+                                    button{
+                                        background:#D9D9D9;
+                                        border:none;
+                                        border-radius:100px;
+                                        font-size:0;
+                                        height: 100%;
+                                        width:100%;
+                                    }
+
+                                    &.show{
+                                        display:flex;
+                                    }
+                
+                                    &.current{
+                
+                                        button{
+                                            transform:scale(1);
+                                        }
+                                    }
+                
+                                    &.secondary{
+                
+                                        button{
+                                            transform:scale(.8);
+                                        }
+                                    }
+                
+                                    &.thirdly{
+
+                                        opacity:0.4;
+                                        
+                                        button{
+                
+                                            transform:scale(.5);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .slide-collection{
+                        height:100%;
+                        position:relative;
+                        width:100%;
+
+                        .slick-list{
+                            height:100%;
+
+                            .slick-track{
+                                height:100%;
+                            }
+                        }
+
+                        .slide{
+                            display:inline-block;
+                            height:100%;
+                            position:relative;
+                            width:100%;
+
+                            .cta{
+                                bottom:10px;
+                                margin-right:0;
+                                position:absolute;
+                                right:10px
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+@media screen and (min-width: 768px){
+    .single-event{
+        #header{
+            height: auto;
+    
+            .content-container{
+    
+                .left{
+                    .back {
+                        margin-bottom: 55px;
+                    }
+    
+                    .event-type{
+
+                        .info{
+    
+                            p{
+                                line-height:16px;
+        
+                            }
+
+                        }
+                    }
+                    
+    
+                    .eyebrows {
+                        color: #fff;
+                    }
+    
+                    .title {
+                        font-size: 74px;
+                        line-height:1;
+                        margin-top: 14px;
+                    }
+                    
+                    .description {
+                        font-size: 18px;
+                        line-height: 30px;
+                        margin-top: 39px;
+                    }
+    
+                    .cta-container {
+                        justify-content: flex-start;
+                        display: flex;
+                        flex-direction: row;
+                    }
+                }
+
+                .right{
+
+                    .event-carousel{
+                        left:50%;
+                        max-width:800px;
+                        right:auto;
+                        transform:translate3d(-50%, 0, 0);
+
+                        .slide-collection{
+
+                            .slide{
+
+                                .cta{
+                                    bottom:40px;
+                                    right:100px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width: 840px){
+    .single-event{
+        #header{
+            padding-bottom:360px;
+    
+        }
+
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .single-event{
+        #header{
+            height: auto;
+            padding-bottom:0;
+    
+            .content-container{
+                flex-direction:row;
+                margin:200px auto 85px;
+    
+                .left{
+                    min-height:400px;
+                    width:50%;
+                }
+
+                .right{
+                    margin-top:50px;
+                    width:50%;
+                }
+
+            }
+        }
+    }
+
+}
