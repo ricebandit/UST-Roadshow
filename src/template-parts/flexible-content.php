@@ -124,7 +124,7 @@ function convertState($name) {
 
                         <h4 class="eyebrows"><?php echo get_sub_field('decorative_text') ?></h4>
                         <h1 class="title large-text"><?php echo get_sub_field('title') ?></h1>
-                        <p class="description large-text"><?php echo get_sub_field('description') ?></p>
+                        <div class="description large-text"><?php echo get_sub_field('description') ?></div>
 
                         <div class="cta-container">
                         <?php
@@ -194,7 +194,7 @@ function convertState($name) {
 					<div class="content-container">
 						<div class="half left">
 							<h1 class="header large-text"><?php echo $panel['headline'] ?></h1>
-							<p class="description large-text"><?php echo $panel['description'] ?></p>
+							<div class="description large-text"><?php echo $panel['description'] ?></div>
 
                             <div class="cta-container">
 							<?php
@@ -341,7 +341,7 @@ function convertState($name) {
 						<a class="card <?php echo $card['color_key'] ?> <?php echo $urlClass; ?>" href="<?php echo $card['cta_url'] ?>" target="<?php echo $windowTarget ?>">
 							<div class="color-band"></div>
 							<h2 class="title"><?php echo $card['title'] ?></h2>
-							<p class="description"><?php echo $card['description'] ?></p>
+							<div class="description"><?php echo $card['description'] ?></div>
 
                             <p class="cta-prop"><?php echo $card['cta_text'] ?></p>
 						</a>
@@ -697,6 +697,8 @@ function convertState($name) {
 								usort($all_events, function($a, $b) {
 									return $a['date-string'] - $b['date-string'];
 								});
+
+								$all_events = array_reverse($all_events);
 	
 							}
 
@@ -711,6 +713,7 @@ function convertState($name) {
 								$date_formatted = date_format($date, 'm/d/Y');
 
 								if( $event['past']){
+									if(!$currentState || $currentState === $event["state"]["label"]){
 						?>
 							<a href="<?php echo $event['permalink'] ?>" class="item <?php echo strtolower($event['event_type']) ?>">
 								<div class="background" style="background:url(<?php echo $event['event_images'][0]['image']['sizes']['large'] ?>)no-repeat center;background-size:cover;"></div>
@@ -723,6 +726,7 @@ function convertState($name) {
 								</div>
 							</a>
 						<?php
+									}
 								}
 							}
 						}
@@ -812,7 +816,6 @@ function convertState($name) {
 								if(! $event['past']){
 						?>
 							<div class="item">
-								<p class="gray"><small><?php echo $event['event_type'] ?></small></p>
 								<p class="location"><?php echo $event['city'] . ',&nbsp;' . convertState( $event[ 'state' ] ) ?></p>
 								<p class="date"><?php echo $date_formatted ?></p>
 							</div>
@@ -953,7 +956,7 @@ function convertState($name) {
 										$targetwindow = '_blank';
 									}
                                 ?>
-                                <a href="<?php echo $cta['url'] ?>" target="<?php echo $targetwindow ?>" class="cta <?php echo $cta['cta_type']['value'] ?>"><span><?php echo $cta['display_text'] ?></span></a>
+                                <a href="<?php echo $cta['url'] ?>" target="<?php echo $targetwindow ?>" class="cta <?php echo $cta['cta_type']['value'] ?> <?php echo $cta['additional_classes'] ?>"><span><?php echo $cta['display_text'] ?></span></a>
     
                                 <?php }
                             }
@@ -1000,42 +1003,126 @@ function convertState($name) {
 
         <?php 
         /*
-        TOPICS
+        FULL WIDTH TEXT BLOCK
         */
-        if(get_row_layout() === 'topics'){?>
-            <section class="fc_topics">
-                <?php if(get_sub_field('title') || get_sub_field('description')){ ?>
-                    <div class="header">
-                        <h1 class="title"><?php echo get_sub_field('title') ?></h1>
-                        <p class="description"><?php echo get_sub_field('description') ?></p>
-                    </div>
-                <?php } 
+        if(get_row_layout() === 'full_width_text_block'){?>
+            <section class="fc_full_width_text_block text-block-group">
+				<div class="content-container">
+					<?php
+						$align = 'left';
+						if( get_sub_field('header_align')['value'] === 'left'){
+							$align = 'left';
+						}else if( get_sub_field('header_align')['value'] === 'center'){
+							$align = 'center';
+						}else if( get_sub_field('header_align')['value'] === 'right'){
+							$align = 'right';
+						}
+						
+					?>
+					<div class="header <?php echo $align; ?>">
+					<?php if(get_sub_field('title')){ ?>
+						<h1 class="title"><?php echo get_sub_field('title') ?></h1>
+					<?php } ?>
+					<?php if(get_sub_field('description')){ ?>
+						<p class="description"><?php echo get_sub_field('description') ?></p>
+					<?php } ?>
+					</div>
 
-                for($i = 0; $i < count(get_sub_field('formats')); $i++){
-                    $body = get_sub_field('formats')[$i];
+					<div class="text-container">
+						<div class="text-block">
+							<?php echo get_sub_field('text_block') ?>
+						</div>
+					</div>
 
-                    if($body['acf_fc_layout'] === 'text_block'){
-                    ?>
-                <div class="text-block <?php echo $body['column_size'] ?>">
-                        <?php if( $body['decorative_text'] ){ ?>
-                            <h4 class="decorative-text"><?php echo $body['decorative_text'] ?></h4>
-                        <?php } ?>
-                        <?php if( $body['title'] ){ ?>
-                            <h2 class="title"><?php echo $body['decorative_text'] ?></h2>
-                        <?php } ?>
-                        <?php if( $body['body_text'] ){ ?>
-                            <p class="body-text"><?php echo $body['body_text'] ?></p>
-                        <?php } ?>
-                </div>
-                    <?php
-                    }
-                ?>
+				</div>
 
-                <?php
-                }
-                ?>
             </section>
-        <?php } // topics ?>
+        <?php } // full-width text block ?>
+
+		<?php 
+		/*
+		DOUBLE TEXT BLOCK
+		*/
+		if(get_row_layout() === 'double_text_block'){?>
+			<section class="fc_double_text_block text-block-group">
+				<div class="content-container">
+					<?php
+						$align = 'left';
+						if( get_sub_field('header_align')['value'] === 'left'){
+							$align = 'left';
+						}else if( get_sub_field('header_align')['value'] === 'center'){
+							$align = 'center';
+						}else if( get_sub_field('header_align')['value'] === 'right'){
+							$align = 'right';
+						}
+						
+					?>
+					<div class="header <?php echo $align; ?>">
+					<?php if(get_sub_field('title')){ ?>
+						<h1 class="title"><?php echo get_sub_field('title') ?></h1>
+					<?php } ?>
+					<?php if(get_sub_field('description')){ ?>
+						<p class="description"><?php echo get_sub_field('description') ?></p>
+					<?php } ?>
+					</div>
+
+					<div class="text-container">
+						<div class="text-block">
+							<?php echo get_sub_field('text_block_1') ?>
+						</div>
+						<div class="text-block">
+							<?php echo get_sub_field('text_block_2') ?>
+						</div>
+					</div>
+
+				</div>
+
+			</section>
+		<?php } // double text block ?>
+
+		<?php 
+		/*
+		TRIPLE TEXT BLOCK
+		*/
+		if(get_row_layout() === 'triple_text_block'){?>
+			<section class="fc_triple_text_block text-block-group">
+				<div class="content-container">
+					<?php
+						$align = 'left';
+						if( get_sub_field('header_align')['value'] === 'left'){
+							$align = 'left';
+						}else if( get_sub_field('header_align')['value'] === 'center'){
+							$align = 'center';
+						}else if( get_sub_field('header_align')['value'] === 'right'){
+							$align = 'right';
+						}
+						
+					?>
+					<div class="header <?php echo $align; ?>">
+					<?php if(get_sub_field('title')){ ?>
+						<h1 class="title"><?php echo get_sub_field('title') ?></h1>
+					<?php } ?>
+					<?php if(get_sub_field('description')){ ?>
+						<p class="description"><?php echo get_sub_field('description') ?></p>
+					<?php } ?>
+					</div>
+
+					<div class="text-container">
+						<div class="text-block">
+							<?php echo get_sub_field('text_block_1') ?>
+						</div>
+						<div class="text-block">
+							<?php echo get_sub_field('text_block_2') ?>
+						</div>
+						<div class="text-block">
+							<?php echo get_sub_field('text_block_3') ?>
+						</div>
+					</div>
+
+				</div>
+
+			</section>
+		<?php } // double text block ?>
 
         <?php 
         /*

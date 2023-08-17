@@ -193,9 +193,14 @@ function activateEventPage(){
         // Carousel
         if( $('.event-carousel')[0] ){
             var carousel = $('.event-carousel .slide-collection');
-
+            var slides = $('.event-carousel .slide-collection .slide');
+            console.log('slides', slides.length);
                 
             var subnav = $('.event-carousel .subnav');
+
+            if(slides.length < 2){
+                subnav.remove();
+            }
     
             var props = {
                 infinite: false,
@@ -461,8 +466,11 @@ function resizeFCAdditionalCoverageCarousels(){
 }
 
 function activateFCPastEventsCarousels(){
+    // Capable of mulitple Past Event carousels
     var carousels = $('.fc_past_events .schedule.carousel');
     var subs = $('.fc_past_events .subnav');
+
+    console.log('activateFCPastEventsCarousels');
 
     if(carousels.length === 0){ return; }
 
@@ -492,6 +500,25 @@ function activateFCPastEventsCarousels(){
                         }
                     }
                 ]
+            }
+
+            console.log('Past event slides in carousel: ', $(carousel).find(".item"));
+
+            // If less than 3 items in carousel, don't initialize carousel. INstead label carousel with ".single" or ".double" classes
+            var items = $(carousel).find(".item");
+            if(items.length < 4){
+                if(items.length === 1){
+                   $(carousel).addClass('single'); 
+                }
+                if(items.length === 2){
+                   $(carousel).addClass('double'); 
+                }
+                if(items.length === 3){
+                   $(carousel).addClass('triple'); 
+                }
+
+                $(subnav).addClass('hide');
+                return;
             }
     
             carousel.slick(props);

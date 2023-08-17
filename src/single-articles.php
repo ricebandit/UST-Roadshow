@@ -24,7 +24,7 @@ get_header();
                     
                     <h4 class="eyebrows"><?php echo get_field( 'flexible_content', 150)[0]['decorative_text'] ?></h4>
                     <h1 class="title large-text"><?php echo get_field( 'flexible_content', 150)[0]['title'] ?></h1>
-                    <p class="description large-text"><?php echo get_field( 'flexible_content', 150)[0]['description'] ?></p>
+                    <div class="description large-text"><?php echo get_field( 'flexible_content', 150)[0]['description'] ?></div>
 
                     <div class="cta-container"></div>
                 </div>

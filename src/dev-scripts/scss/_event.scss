@@ -1,4 +1,11 @@
 .single-event{
+
+    section{
+        &:nth-child(2){
+            margin-top:30vw;
+        }
+    }
+
     #header{
         display: flex;
         justify-content: center;
@@ -308,6 +315,7 @@
 
 @media screen and (min-width: 768px){
     .single-event{
+
         #header{
             height: auto;
     
@@ -392,6 +400,13 @@
 
 @media screen and (min-width: 1200px){
     .single-event{
+
+        section{
+            &:nth-child(2){
+                margin-top:140px;
+            }
+        }
+        
         #header{
             height: auto;
             padding-bottom:0;

@@ -142,6 +142,7 @@
 
     .single-state{
         .fc_hero{
+            height: 600px;
         
             .content-container{
     
@@ -167,7 +168,22 @@
             }
         }
 
+        .fc_4_stats{
+            margin-bottom: 30px;
+            padding:61px 0 10px;
+
+            .content-container{
+                .header{
+                    .title{
+                        font-size:48px;
+                    }
+                }
+            }
+        }
+
         .fc_past_events{
+            padding-bottom: 30px;
+
             .content-container{
                 align-items:center;
                 display:flex;
@@ -175,7 +191,7 @@
 
                 .header{
                     margin-bottom:40px;
-                    margin-top:111px;
+                    margin-top:50px;
                     max-width:700px;
 
                     .title{
@@ -187,6 +203,13 @@
                     }
                 }
             }
+        }
+
+        .fc_additional_articles{
+            .content-container{
+                margin: 30px auto 38px;
+            }
+
         }
 
     }

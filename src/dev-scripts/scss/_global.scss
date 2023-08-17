@@ -43,6 +43,25 @@ html,body{
         margin:0;
     }
 
+    span{
+        &.swish{
+            display:inline-block;
+            position:relative;
+
+            &:before{
+                aspect-ratio: 619/46;
+                background: url(/wp-content/uploads/2023/07/scribble-underline.png) no-repeat center;
+                background-size: contain;
+                bottom: 0;
+                content: "";
+                left: 50%;
+                position: absolute;
+                transform: translate3d(-50%, 75%, 0);
+                width: 85%;
+            }
+        }
+    }
+
     .cta{
         color:white;
         margin-right:30px;
@@ -201,7 +220,7 @@ html,body{
         font-family: 'Open Sans', sans-serif;
         font-weight:600;
         letter-spacing: -0.03em;
-        line-height:1;
+        line-height:1.2;
     }
     .description{
         color:white;

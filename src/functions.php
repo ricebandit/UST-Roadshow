@@ -214,7 +214,7 @@ add_filter( 'body_class', 'add_page_slug_to_the_body' );
 
 function remove_p_tags(){
 	remove_filter( 'the_content', 'wpautop' );
-	remove_filter( 'acf_the_content', 'wpautop' );
+	//remove_filter( 'acf_the_content', 'wpautop' );
 
 }
 

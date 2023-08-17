@@ -83,7 +83,7 @@
 
 	<div id="mobile-nav" style="transform:translate3d(100%, 0, 0);">
 		<div class="header">
-		<div class="logo" style="background:url(/wp-content/uploads/2023/06/logo-white.png)no-repeat center; background-size:contain;"></div>
+		<a class="logo" href="/" style="background:url(/wp-content/uploads/2023/06/logo-white.png)no-repeat center; background-size:contain;"></a>
 			<div class="close-btn"></div>
 		</div>
 		<?php
