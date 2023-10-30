@@ -198,3 +198,25 @@
         }
     }
 }
+
+@media screen and (min-width:1200px){
+    .home{
+        .fc_hero_carousel{
+            .carousel{
+                .panel{
+                    &.slick-active{
+                        .content-container{
+                            .header{
+                                .swish{
+                                    &:before{
+                                        transform: translate3d(-50%, 92%, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

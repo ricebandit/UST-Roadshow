@@ -17,9 +17,10 @@
 <form>
     
     <select name="states_dd" id="states_dd" onchange="stateSelect()">
-        <?php if($currentState === false){ ?>
-        <option value="none" selected disabled hidden>Select a state</option>
+        <?php if($args['showall'] === true || $currentState == false){ ?>
+        <option id='all' value="none" selected disabled hidden>Select a state</option>
         <?php } ?>
+        
 <?php
     for($i = 0; $i < count($states); $i++){
         $state = $states[$i];
@@ -27,6 +28,7 @@
         if($currentState){
             $stateText = str_replace(' ', '', $state['display_text']);
             $currentState = str_replace(' ', '', $currentState);
+
             if( $currentState == $stateText){
                 $selected = 'selected';
             }

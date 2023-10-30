@@ -175,6 +175,39 @@ function convertState($name) {
 			</section>
 		<?php } // hero ?>
 
+
+
+		<?php 
+		/*
+		BLOG HERO
+		*/
+		if(get_row_layout() === 'blog_hero'){?>
+			<section class="fc_blog_hero" style="background: linear-gradient(to bottom,  #000000 0%,<?php echo get_sub_field('background_color'); ?> 100%);">
+				<div class="content-container">
+					<?php if(get_sub_field('back_button')){ ?>
+                            <a href="<?php echo get_sub_field('back_url') ?>" class="back"><?php echo get_sub_field('back_button_text') ?></a>
+                    <?php } ?>
+
+					<div class="half left">
+					<?php if(get_sub_field('back_button')){ ?>
+                            <a href="<?php echo get_sub_field('back_url') ?>" class="back"><?php echo get_sub_field('back_button_text') ?></a>
+                    <?php } ?>
+
+					<div class="title"><h1><?php echo get_sub_field('title'); ?></h1></div>
+
+					<div class="date"><?php echo get_the_date() ?></div>
+					</div>
+					<div class="half right">
+						<div class="img-container" style="background:#003055;">
+							<div class="img" style="background:url(<?php echo get_sub_field('image'); ?>)no-repeat center;background-size:cover;"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+		<?php } // template ?>
+
+
+
 		<?php 
 		/*
 		HERO CAROUSEL
@@ -451,163 +484,345 @@ function convertState($name) {
 			</section>
 		<?php } // 4 stats ?>
 
+
+
+
+
+
+
+
+
+
+
+
 		<?php 
 		/*
-		ADDITIONAL ARTICLES
+		ADDITIONAL ARTICLES NEW
 		*/
 		if(get_row_layout() === 'additional_articles'){?>
-			<section class="fc_additional_articles">
-                
-                <?php
-                    $slides = get_sub_field('articles');
+		<section class="fc_additional_articles">
+			<div class="content-container">
 
-                    if( get_sub_field('articles') === false){
-                        $slides = [];
+				<div class="header">
+					<div class="title"><?php echo get_sub_field('decorative_text'); ?></div>
+				</div>
+
+				<div class="article-items <?php if( count(get_sub_field('articles') ) == 1 ){ echo 'single'; }?>">
+					<?php
+					
+					if(get_sub_field('articles')){  ?>
+
+						<div class="half left">
+						<?php
+							$col_amt_1 = 3;
+							$col_amt_2 = 3;
+							$item_max = 6;
+
+							if( count(get_sub_field('articles')) < 6){
+								$item_max = count( get_sub_field('articles') );
+								$col_amt_1 = ceil( $item_max / 2);
+
+								$col_amt_2 = $item_max - $col_amt_1;
+							}
+
+							for($i = 0; $i < $col_amt_1; $i++){
+								$item = get_sub_field('articles')[$i]['article'];
+								$item_id = $item->ID;
+	
+								$raw_post = get_post($item_id);
+	
+								$rawdate = $raw_post->post_date;
+	
+	
+								// DATE FORMATTING
+								$date = DateTime::createFromFormat('Y-m-d H:i:s', $rawdate);
+								$formattedDate = $date->format('m/d/Y');
+	
+								if($i < $col_amt_1 || get_sub_field('mode') === 'total_list'){
+									
+							?>
+							<a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
+								<div class="info-container">
+									<p class="date"><?php echo get_field('publisher', $item_id); ?> | <?php echo $formattedDate; ?></p>
+									<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+								</div>
+							</a>
+							<?php
+								}
+	
+							} 
+						?>
+						</div>
+	
+	
+	
+						<div class="half right">
+						<?php
+							for($i = $col_amt_1; $i < $item_max; $i++){
+								$item = get_sub_field('articles')[$i]['article'];
+								$item_id = $item->ID;
+	
+								$raw_post = get_post($item_id);
+	
+								$rawdate = $raw_post->post_date;
+	
+	
+								// DATE FORMATTING
+								$date = DateTime::createFromFormat('Y-m-d H:i:s', $rawdate);
+								$formattedDate = $date->format('m/d/Y');
+	
+								if($index < 5){
+									
+							?>
+							<a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
+								<div class="info-container">
+									<p class="date"><?php echo get_field('publisher', $item_id); ?> | <?php echo $formattedDate; ?></p>
+									<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+								</div>
+							</a>
+							<?php
+								}
+	
+							} 
+						?>
+						</div>
+
+					<?php }else{
 
 						$query = new WP_Query(array(
 							'post_type'			=> 'article',
 							'post_status'		=> 'publish',
-							'posts_per_page'	=> -1,
-							'nopaging'			=> true
+							'posts_per_page'	=> -1
 						));
 
 						if ( $query->have_posts() ) {
-                            $tempState = str_replace(" ", "-", $currentState);
-                            $tempState = strtolower($tempState);
-
-							while ( $query->have_posts() ) {
+							$index = 0;	
+							
+							
+							
+							
+							
+							
+							
+							while ( $query->have_posts() ) { 
 								$query->the_post();
+								$item_id = get_the_id();
 
-                                // Check if applied to this state
-                                $statesCheck = get_field('applied_states');
-                                for($s = 0; $s < count($statesCheck); $s++){
-                                    if( $statesCheck[$s] === $tempState || $currentState === false ){
-                                        // Check for image, if false, use default
-                                        $image = get_field('image');
-                                        $image_url = $image['image']['sizes']['medium_large'];
-
-                                        if($image === false){
-                                            $image_url = get_field('default_article_image');
-                                        }else{
-                                            $image_url = $image['sizes']['medium_large'];
-                                        }
-
-                                        // Add Article
-                                        $obj = [
-                                            'title'  => get_field('title'),
-                                            'link_type'      => get_field('link_type'),
-                                            'image'      => $image_url,
-                                            'publisher'      => get_field('publisher'),
-                                            'description'      => get_field('description'),
-                                            'url'      => get_field('url'),
-                                            'cta_text'      => get_field('cta_text'),
-                                            'applied_states'      => get_field('applied_states'),
-                                        ];
-
-                                        $slides[] = $obj;
-
-                                        break;
-                                    }
-                                    
-                                }
-
-                            }
-
-                        }
-                    }else{ // CURATED
-                        $tempSlides = [];
-
-                        for($i = 0; $i < count($slides); $i++){
-                            $slide = $slides[$i];
-
-                            // Check for image, if false, use default
-                            $image = get_field('image', $slide['article']->ID);
-                            $image_url = $image['image']['sizes']['medium_large'];
-
-                            if($image === false){
-                                $image_url = get_field('default_article_image', $slide['article']->ID);
-                            }else{
-                                $image_url = $image['sizes']['medium_large'];
-                            }
-
-                            $slideData = [
-                                'title'             =>  get_field('title', $slide['article']->ID),
-                                'link_type'         => get_field('link_type', $slide['article']->ID),
-                                'image'             => $image_url,
-                                'publisher'         => get_field('publisher', $slide['article']->ID),
-                                'description'       => get_field('description', $slide['article']->ID),
-                                'url'               => get_field('url', $slide['article']->ID),
-                                'cta_text'               => get_field('cta_text', $slide['article']->ID),
-                            ];
-                            $tempSlides[] = $slideData;
-                        }
-
-                        $slides = $tempSlides;
-
-                    }
-
-                ?>
-				<?php
-				$classInstances = '';
-
-				if( count($slides) == 1 ){
-					$classInstances = 'single';
-				}else if( count($slides) == 2 ){
-					$classInstances = 'double';
-				}else if( count($slides) == 3 ){
-					$classInstances = 'triple';
-				}
-				?>
-				<div class="content-container <?php echo $classInstances ?>">
-					<div class="header"><p class="eyebrows"><?php echo get_sub_field('decorative_text') ?></p></div>
+								$raw_post = get_post($item_id);
 
 
-					<div class="slides" >
+								// DATE FORMATTING
+								$date = DateTime::createFromFormat('Y-m-d H:i:s', get_post($item_id)->post_date);
+								$formattedDate = $date->format('m/d/Y');
+
+								if($index < 6){
+
+									if($index == 0){
+									?>
+									<div class="half left">
+									<?php
+									}
+							?>
+
+							<a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
+								<div class="info-container">
+									<p class="date"><?php echo get_field('publisher', $item_id); ?> | <?php echo $formattedDate; ?></p>
+									<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+								</div>
+							</a>
+							<?php
+
+									if($index == 2){
+										?>
+										</div>
+										<div class="half right">
+										<?php
+									}elseif($index == 5){
+										?>
+										</div>
+										<?php
+									}
+								}
+
+								$index++;
+							}
+							
+						}
+
+						
+					} ?>
 					<?php
+					wp_reset_postdata();
+
+					?>
+                
 					
-					foreach($slides as $slide){
-                        $slideType = 'video';
-                        if($slide['link_type'] == 'link'){
-                            $slideType = 'link';
-                        }
+				</div>
+			</div>
+		</section>
+		<?php } ?>
 
-                    ?>
-                        <a class="slide <?php echo $slideType; ?>" href="<?php echo $slide['url'] ?>" target="_blank"  style="background:url(<?php echo $slide['image'] ?>)no-repeat center;background-size:cover;">
-							<div class="info">
-                            <?php if($slide['link_type'] == 'link'){?>
-								<h2 class="title"><?php echo $slide['title'] ?></h2>
-								<p class="publisher gray"><small><?php echo $slide['publisher'] ?></small></p>
-								<div class="description">
-                                    <p><?php echo $slide['description'] ?></p>
-                                </div>
-								<div class="cta-graphic"><p><?php echo $slide['cta_text'] ?></p></div>
-							<?php }else if($slide['link_type'] == 'video'){ ?>
-								<h2 class="title"><?php echo $slide['title'] ?></h2>
-								<div class="cta-graphic"><p><?php echo $slide['cta_text'] ?></p></div>
-							<?php } ?>
-                            </div>
-						</a>
+
+		<?php 
+		/*
+		NEWS LIST (Nearly Identical to additional_articles, except for "mode" option). 
+		This was necessary to accomodate the legacy additional_articles component when it got revised.
+		*/
+		if(get_row_layout() === 'news_list'){?>
+			<section class="fc_news_list">
+
+				<div class="content-container">
+
+					<div class="header">
+						<div class="title"><?php echo get_sub_field('title'); ?></div>
+						<a href="<?php echo get_sub_field('cta_url'); ?>" class="cta pill red"><span><?php echo get_sub_field('cta_text'); ?></span></a>
+					</div>
+
+					<div class="article-items">
 					<?php
+
+					if(get_sub_field('articles')){  ?>
+
+					<div class="half left">
+					<?php
+						for($i = 0; $i < 3; $i++){
+							$item = get_sub_field('articles')[$i]['article'];
+							$item_id = $item->ID;
+
+							$raw_post = get_post($item_id);
+
+							$rawdate = $raw_post->post_date;
+
+
+							// DATE FORMATTING
+							$date = DateTime::createFromFormat('Y-m-d H:i:s', $rawdate);
+							$formattedDate = $date->format('m/d/Y');
+
+							if($i < 3 || get_sub_field('mode') === 'total_list'){
+								
+						?>
+						<a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
+							<div class="info-container">
+								<p class="date"><?php echo get_field('publisher', $item_id); ?> | <?php echo $formattedDate; ?></p>
+								<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+							</div>
+						</a>
+						<?php
+							}
+
+						} 
+					?>
+					</div>
+
+
+
+					<div class="half right">
+					<?php
+						for($i = 2; $i < 5; $i++){
+							$item = get_sub_field('articles')[$i]['article'];
+							$item_id = $item->ID;
+
+							$raw_post = get_post($item_id);
+
+							$rawdate = $raw_post->post_date;
+
+
+							// DATE FORMATTING
+							$date = DateTime::createFromFormat('Y-m-d H:i:s', $rawdate);
+							$formattedDate = $date->format('m/d/Y');
+
+							if($index < 5 || get_sub_field('mode') === 'total_list'){
+								
+						?>
+						<a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
+							<div class="info-container">
+								<p class="date"><?php echo get_field('publisher', $item_id); ?> | <?php echo $formattedDate; ?></p>
+								<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+							</div>
+						</a>
+						<?php
+							}
+
+						} 
+					?>
+					</div>
+					<?php	
+					}else{
+
+
+						$query = new WP_Query(array(
+							'post_type'			=> 'article',
+							'post_status'		=> 'publish',
+							'posts_per_page'	=> -1
+						));
+
+						if ( $query->have_posts() ) {
+
+							$index = 0;
+
+							while ( $query->have_posts() ) { 
+								$query->the_post();
+								$item_id = get_the_id();
+
+								$raw_post = get_post($item_id);
+
+
+								// DATE FORMATTING
+								$date = DateTime::createFromFormat('Y-m-d H:i:s', get_post($item_id)->post_date);
+								$formattedDate = $date->format('m/d/Y');
+
+								if($index < 6 || get_sub_field('mode') === 'total_list'){
+
+									if($index == 0){
+									?>
+									<div class="half left">
+									<?php
+									}
+							?>
+
+							<a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
+								<div class="info-container">
+									<p class="date"><?php echo get_field('publisher', $item_id); ?> | <?php echo $formattedDate; ?></p>
+									<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+								</div>
+							</a>
+							<?php
+								}
+
+								if($index == 2){
+									?>
+									</div>
+									<div class="half right">
+									<?php
+								}elseif($index == 5){
+									?>
+									</div>
+									<?php
+								}
+
+								$index++;
+							}
+							
+						}
 					}
 					?>
-					</div> <!-- slides -->
+					</div>
+					<?php
+					wp_reset_postdata();
 
-                    <div class="subnav">
-                            <div class="arrow prev">
-                                <div class="idle" style="background:url(/wp-content/uploads/2023/07/carousel-arrow-blue.png)no-repeat center;background-size:cover;"></div>
-                                <div class="over" style="background:url(/wp-content/uploads/2023/07/carousel-arrow-hover-blue.png)no-repeat center;background-size:cover;"></div>
-                            </div>
-                            <div class="dots"></div>
-                            <div class="arrow next">
-                                <div class="idle" style="background:url(/wp-content/uploads/2023/07/carousel-arrow-blue.png)no-repeat center;background-size:cover;"></div>
-                                <div class="over" style="background:url(/wp-content/uploads/2023/07/carousel-arrow-hover-blue.png)no-repeat center;background-size:cover;"></div>
-                            </div>
-                        </div>
+					?>
+
+
+
+
+
+
+
 				</div>
-
-				<?php wp_reset_postdata(); ?>
 			</section>
-		<?php } // additional articles ?>
+		<?php } // news list ?>
+
+
 
 		<?php 
 		/*
@@ -838,7 +1053,7 @@ function convertState($name) {
 		IMPACT DROPDOWN
 		*/
 		if(get_row_layout() === 'impact_dropdown'){?>
-			<section class="fc_impact_dropdown">
+			<section class="fc_impact_dropdown xxx">
 
 			<div class="content-container">
 				<div class="left">
@@ -850,7 +1065,7 @@ function convertState($name) {
 					<div class="dropdown">
 
 					<?php
-						get_template_part( 'template-parts/states-dropdown' );
+						get_template_part( 'template-parts/states-dropdown', null, array('showall' => true) );
 					?>
 					</div>
 
@@ -874,8 +1089,13 @@ function convertState($name) {
 				$jumplink = get_sub_field('jump_link_id');
 			}
 
+			$effects = 'no-effects';
+			if(get_sub_field('back_image')){
+				$effects = '';
+			}
+
 			?>
-			<section class="fc_image_weighted" <?php if( get_sub_field('jump_link_id') ){ echo 'id="' . $jumplink . '"';} ?>>
+			<section class="fc_image_weighted <?php echo $effects; ?>" <?php if( get_sub_field('jump_link_id') ){ echo 'id="' . $jumplink . '"';} ?>>
 				<div class="content-container <?php echo get_sub_field('sided') ?>-weighted">
 					<div class="left">
 						<?php
@@ -947,6 +1167,7 @@ function convertState($name) {
                             <div class="body-text"><?php echo $block['paragraph_text'] ?></div>
     
                             <?php if($block['ctas'] ){ ?>
+								<div class="cta-container">
                                 <?php for($i = 0; $i < count($block['ctas']); $i++){
                                     $cta = $block['ctas'][$i];
 
@@ -956,9 +1177,16 @@ function convertState($name) {
 										$targetwindow = '_blank';
 									}
                                 ?>
-                                <a href="<?php echo $cta['url'] ?>" target="<?php echo $targetwindow ?>" class="cta <?php echo $cta['cta_type']['value'] ?> <?php echo $cta['additional_classes'] ?>"><span><?php echo $cta['display_text'] ?></span></a>
+                                <a href="<?php echo $cta['url'] ?>" target="<?php echo $targetwindow ?>" class="cta <?php echo $cta['cta_type']['value']; ?> <?php if( $cta['cta_type']['value'] == 'pill' ){ echo 'red'; } ?> <?php echo $cta['additional_classes'] ?>">
+									<span><?php echo $cta['display_text'] ?></span>
+									<?php if( $cta['cta_type']['value'] == 'script' ){ ?>
+										<div class="arrow"><div class="icon"><div class="loop"></div><div class="whole"></div></div></div>
+									<?php } ?>
+								</a>
     
-                                <?php }
+                                <?php } ?>
+								</div>
+							<?php
                             }
                         }
                     } ?>
@@ -1005,8 +1233,30 @@ function convertState($name) {
         /*
         FULL WIDTH TEXT BLOCK
         */
-        if(get_row_layout() === 'full_width_text_block'){?>
-            <section class="fc_full_width_text_block text-block-group">
+        if(get_row_layout() === 'full_width_text_block'){
+			
+			$pad_top = '';
+
+			if( get_sub_field('top_padding') === true){
+				$pad_top = 'top-padding';
+			}
+			
+			$pad_bottom = '';
+
+			if( get_sub_field('bottom_padding') === true){
+				$pad_bottom = 'bottom-padding';
+			}
+
+			$centered_width = '';
+
+			if( get_sub_field('centered_width') === true){
+				$centered_width = 'centered-width';
+			}
+
+
+		?>
+
+            <section class="fc_full_width_text_block text-block-group <?php echo $pad_top; ?> <?php echo $pad_bottom; ?> <?php echo $centered_width; ?>">
 				<div class="content-container">
 					<?php
 						$align = 'left';
@@ -1017,6 +1267,7 @@ function convertState($name) {
 						}else if( get_sub_field('header_align')['value'] === 'right'){
 							$align = 'right';
 						}
+
 						
 					?>
 					<div class="header <?php echo $align; ?>">
@@ -1043,8 +1294,29 @@ function convertState($name) {
 		/*
 		DOUBLE TEXT BLOCK
 		*/
-		if(get_row_layout() === 'double_text_block'){?>
-			<section class="fc_double_text_block text-block-group">
+		if(get_row_layout() === 'double_text_block'){
+			
+			$pad_top = '';
+
+			if( get_sub_field('top_padding') === true){
+				$pad_top = 'top-padding';
+			}
+			
+			$pad_bottom = '';
+
+			if( get_sub_field('bottom_padding') === true){
+				$pad_bottom = 'bottom-padding';
+			}
+
+			$centered_width = '';
+
+			if( get_sub_field('centered_width') === true){
+				$centered_width = 'centered-width';
+			}
+
+
+		?>
+			<section class="fc_double_text_block text-block-group <?php echo $pad_top; ?> <?php echo $pad_bottom; ?> <?php echo $centered_width; ?>">
 				<div class="content-container">
 					<?php
 						$align = 'left';
@@ -1084,8 +1356,29 @@ function convertState($name) {
 		/*
 		TRIPLE TEXT BLOCK
 		*/
-		if(get_row_layout() === 'triple_text_block'){?>
-			<section class="fc_triple_text_block text-block-group">
+		if(get_row_layout() === 'triple_text_block'){
+			
+			$pad_top = '';
+
+			if( get_sub_field('top_padding') === true){
+				$pad_top = 'bottom-padding';
+			}
+			
+			$pad_bottom = '';
+
+			if( get_sub_field('bottom_padding') === true){
+				$pad_bottom = 'bottom-padding';
+			}
+
+			$centered_width = '';
+
+			if( get_sub_field('centered_width') === true){
+				$centered_width = 'centered-width';
+			}
+
+
+		?>
+			<section class="fc_triple_text_block text-block-group <?php echo $pad_top; ?> <?php echo $pad_bottom; ?> <?php echo $centered_width; ?>">
 				<div class="content-container">
 					<?php
 						$align = 'left';
@@ -1165,7 +1458,8 @@ function convertState($name) {
 					<div class="dropdown">
 						<p class="label">Filter by:</p>
 						<?php
-							get_template_part( 'template-parts/states-dropdown' );
+							$press_dd = true;
+							get_template_part( 'template-parts/states-dropdown', null, array('showall' => true) );
 						?>
 					</div>
 
@@ -1185,10 +1479,8 @@ function convertState($name) {
 							$formattedDate = $date->format('m/d/Y');
                     ?>
                     <a href="<?php echo get_field('url', $item_id); ?>" target="_blank" class="article-item">
-                        <p class="publisher"><?php echo get_field('publisher', $item_id); ?></p>
+                        <p class="publisher"><?php echo get_field('publisher', $item_id) . " | " . $formattedDate; ?></p>
                         <h1 class="title"><?php echo get_field('title', $item_id); ?></h1>
-                        <p class="date"><?php echo $formattedDate; ?></p>
-                        <p class="cta"><span>Read More on USTravel.com</span></p>
                     </a>
                     <?php
                         }    
@@ -1198,7 +1490,7 @@ function convertState($name) {
 						$query = new WP_Query(array(
 							'post_type'			=> 'article',
 							'post_status'		=> 'publish',
-							'posts_per_page'	=> 5
+							'posts_per_page'	=> -1
 						));
 
 						if ( $query->have_posts() ) {
@@ -1215,14 +1507,13 @@ function convertState($name) {
                                 $formattedDate = $date->format('m/d/Y');
 
                             ?>
-                            <a href="<?php echo get_field('url'); ?>" target="_blank" class="article-item">
-                                <p class="publisher"><?php echo get_field('publisher'); ?></p>
+                            <a href="<?php echo get_field('url'); ?>" target="_blank" class="article-item all-article">
+                                <p class="publisher"><?php echo get_field('publisher') . " | " . $formattedDate; ?></p>
                                 <h1 class="title"><?php echo get_field('title'); ?></h1>
-                                <p class="date"><?php echo $formattedDate; ?></p>
-                                <p class="cta"><span>Read More on USTravel.com</span></p>
                             </a>
                             <?php
                             }
+							
                         }
                     }
 					?>
@@ -1236,11 +1527,133 @@ function convertState($name) {
             </section>
         <?php } // press article list ?>
 
+
+
+        <?php 
+        /*
+        PRESS BLOG LIST
+        */
+        if(get_row_layout() === 'blog_list'){
+			
+			$pad_top = '';
+
+			if( get_sub_field('top_padding') === true){
+				$pad_top = 'top-padding';
+			}
+			
+			$pad_bottom = '';
+
+			if( get_sub_field('bottom_padding') === true){
+				$pad_bottom = 'bottom-padding';
+			}
+			
+			?>
+            <section class="fc_blog_list <?php echo $pad_top ?> <?php echo $pad_bottom ?> <?php echo get_sub_field('mode') ?>">
+                <div class="content-container">
+
+					<div class="header">
+						<div class="title"><?php echo get_sub_field('title'); ?></div>
+						<a href="<?php echo get_sub_field('cta_url'); ?>" class="cta pill red"><span><?php echo get_sub_field('cta_display_text'); ?></span></a>
+					</div>
+
+					<div class="article-items">
+                    <?php
+
+					$max = 3;
+					$index = 0;
+
+                    if(get_sub_field('articles')){  
+                        for($i = 0; $i < count(get_sub_field('articles')); $i++){
+                            $item = get_sub_field('articles')[$i]['item'];
+                            $item_id = $item->ID;
+
+                            $raw_post = get_post($item_id);
+
+							$rawdate = $raw_post->post_date;
+
+
+							// DATE FORMATTING
+							$date = DateTime::createFromFormat('Y-m-d H:i:s', $rawdate);
+							$formattedDate = $date->format('m/d/Y');
+
+							if($index < $max || get_sub_field('mode') === 'total_list'){
+								
+                    ?>
+                    <a href="<?php echo get_permalink($item_id); ?>" target="_self" class="article-item">
+						<div class="img-container">
+							<div class="img" style="background:url(<?php echo get_the_post_thumbnail_url($item_id); ?>)no-repeat center;background-size:cover;"></div>
+						</div>
+						<div class="info-container">
+							<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+							<p class="date"><?php echo $formattedDate; ?></p>
+						</div>
+                    </a>
+                    <?php
+							}
+
+							$index++;
+                        }    
+                    }else{
+
+
+						$query = new WP_Query(array(
+							'post_type'			=> 'blog',
+							'post_status'		=> 'publish',
+							'posts_per_page'	=> -1
+						));
+
+						if ( $query->have_posts() ) {
+
+							while ( $query->have_posts() ) { 
+								$query->the_post();
+                                $item_id = get_the_id();
+    
+                                $raw_post = get_post($item_id);
+    
+    
+                                // DATE FORMATTING
+                                $date = DateTime::createFromFormat('Y-m-d H:i:s', get_post($item_id)->post_date);
+                                $formattedDate = $date->format('m/d/Y');
+
+								if($index < $max || get_sub_field('mode') === 'total_list'){
+                            ?>
+
+							<a href="<?php echo get_permalink($item_id); ?>" target="_self" class="article-item">
+								<div class="img-container">
+									<div class="img" style="background:url(<?php echo get_the_post_thumbnail_url($item_id); ?>)no-repeat center;background-size:cover;"></div>
+								</div>
+								<div class="info-container">
+									<h1 class="title"><?php echo $raw_post->post_title; ?></h1>
+									<p class="date"><?php echo $formattedDate; ?></p>
+								</div>
+							</a>
+                            <?php
+								}
+
+								$index++;
+                            }
+							
+                        }
+                    }
+					?>
+					</div>
+					<?php
+				    wp_reset_postdata();
+
+                    ?>
+                </div>
+				<div class="pagination"></div>
+            </section>
+        <?php } // blog list ?>
+
+
+
+
 		<?php 
 		/*
 		MEDIA INQUIRY
 		*/
-		if(get_row_layout() === 'media_inquiry'){?>
+		if(get_row_layout() === 'media_inquiry'){?> 
 			<section class="fc_media_inquiry" style="background:url(<?php echo get_sub_field('background')['sizes']['large'] ?>)no-repeat center;background-size:cover;">
 				<div class="content-container">
 					<h2 class="title"><?php echo get_sub_field('header_text') ?></h2>
@@ -1252,7 +1665,7 @@ function convertState($name) {
 						$targetwindow = '_blank';
 					}
 					?>
-					<a href="<?php echo get_sub_field('ctas')[0]['url'] ?>" target="<?php echo $targetwindow ?>" class="cta pill red"><span><?php echo get_sub_field('ctas')[0]['display_text'] ?></span></a>
+					<a href="https://www.ustravel.org/contact-us?my_question_is_about=08#form-anchor" target="_blank" class="cta pill red"><span><?php echo get_sub_field('ctas')[0]['display_text'] ?></span></a>
 				</div>
 			</section>
 		<?php } // media inquiry ?>

@@ -2,14 +2,19 @@
 
     section{
         &:nth-child(2){
-            margin-top:30vw;
+            margin-top:100px;
+        }
+
+        .header{
+            .title{
+                color:#222 !important;
+            }
         }
     }
 
     #header{
         display: flex;
         justify-content: center;
-        padding-bottom:43vw;
         position: relative;
         overflow: visible;
         width: 100%;
@@ -129,6 +134,7 @@
                     margin-top:19px;
                     line-height: 22px;
                     letter-spacing: -0.208px;
+                    width:calc(100% - 30px);
                 }
         
                 .cta-container{
@@ -141,6 +147,7 @@
 
             .right{
                 position:relative;
+                transform:translate3d(0, 125px, 0);
                 width:100%;
 
                 .event-carousel{
@@ -148,7 +155,6 @@
                     aspect-ratio: 708 / 567;
                     display:flex;
                     flex-direction:column;
-                    position:absolute;
                     right:0;
                     top:0;
                     width:100%;
@@ -156,11 +162,12 @@
 
                     .subnav{
                         align-items:center;
-                        bottom:30px;
+                        bottom:0px;
                         display:flex;
                         flex-direction:row;
                         left:50%;
-                        margin-top:30px;
+                        position:absolute;
+                        transform:translate3d(-50%, 50px, 0);
 
                         &.hide{
                             display:none;
@@ -292,8 +299,9 @@
                         }
 
                         .slide{
+                            aspect-ratio:1 / 1;
                             display:inline-block;
-                            height:100%;
+                            /* height:100%; */
                             position:relative;
                             width:100%;
 
@@ -303,6 +311,43 @@
                                 position:absolute;
                                 right:10px
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .fc_media_gallery{
+        margin-top:50px;
+    }
+
+    .fc_photo_list{
+        padding-top:50px;
+    }
+
+    .fc_image_weighted{
+
+        .content-container{
+            &.right-weighted{
+                .left{
+                    .text-container{
+
+                        .title{
+                            font-size:38px;
+
+                        }
+                    }
+                }
+            }
+
+            &.left-weighted{
+                .right{
+                    .text-container{
+
+                        .title{
+                            font-size:38px;
+
                         }
                     }
                 }
@@ -332,7 +377,10 @@
     
                             p{
                                 line-height:16px;
-        
+                                
+                                &.type{
+                                    margin-bottom:6px;
+                                }
                             }
 
                         }
@@ -345,7 +393,7 @@
     
                     .title {
                         font-size: 74px;
-                        line-height:1;
+                        line-height:1.1;
                         margin-top: 14px;
                     }
                     
@@ -363,36 +411,113 @@
                 }
 
                 .right{
+                }
+            }
+        }
 
-                    .event-carousel{
-                        left:50%;
-                        max-width:800px;
-                        right:auto;
-                        transform:translate3d(-50%, 0, 0);
+        .fc_image_weighted{
+            margin-top:50px;
 
-                        .slide-collection{
+            .content-container{
+                &.right-weighted{
+                    .left{
+                        .text-container{
+                            margin-top:0;
+                        }
+                    }
+                }
 
-                            .slide{
-
-                                .cta{
-                                    bottom:40px;
-                                    right:100px;
-                                }
-                            }
+                &.left-weighted{
+                    .right{
+                        .text-container{
+                            margin-top:0;
                         }
                     }
                 }
             }
         }
 
-    }
-}
+        .fc_photo_list{
+            .content-container{
+                .header{
+                    .title{
+                        font-size:38px;
+                    }
+                } 
+            } 
+        }
 
-@media screen and (min-width: 840px){
-    .single-event{
-        #header{
-            padding-bottom:360px;
-    
+        .fc_media_gallery{
+            .content-container{
+                .header{
+                    .title{
+                        font-size:38px;
+                    }
+                }
+
+                .collection{
+                    .gallery-item{
+                        display:none;
+
+                        &.show{
+                            display:flex;
+                        }
+                    }
+                }
+            }
+        }
+
+        .fc_past_events{
+            padding-bottom:0;
+
+            .content-container{
+                .header{
+                    margin-top:25px;
+
+                    .title{
+                        font-size:38px;
+                    }
+                }
+
+
+            }
+        }
+
+        .fc_upcoming_events{
+            .content-container{
+                .header{
+                    .title{
+                        font-size:38px;
+                    }
+                }
+
+                .schedule{
+                    margin-top:20px;
+                }
+            }
+        }
+
+        .fc_paragraph_blocks{
+            padding-bottom:0;
+
+            .content-container{
+                .header{
+                    .title{
+                        font-size:38px;
+                    }
+                }
+            }
+        }
+
+        .text-block-group{
+            .content-container{
+                .header{
+                    .title{
+                        font-size:38px;
+                        margin-top:0;
+                    }
+                }
+            }
         }
 
     }
@@ -403,7 +528,15 @@
 
         section{
             &:nth-child(2){
-                margin-top:140px;
+                margin-top:100px;
+            }
+
+            &.text-block-group{
+                .header{
+                    .title{
+                        line-height:1.1;
+                    }
+                }
             }
         }
         
@@ -421,12 +554,30 @@
                 }
 
                 .right{
-                    margin-top:50px;
                     width:50%;
+
+                    .event-carousel{
+                        height:100%;
+                        left:50%;
+                        max-width:800px;
+                        right:auto;
+
+                        .slide-collection{
+
+                            .slide{
+
+                                .cta{
+                                    bottom:40px;
+                                    right:100px;
+                                }
+                            }
+                        }
+                    }
                 }
 
             }
         }
+
     }
 
 }

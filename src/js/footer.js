@@ -1,6 +1,5 @@
 class Footer{
     constructor(){
-        console.log('Footer');
 
         this.injectSocialIconSVGs();
     }

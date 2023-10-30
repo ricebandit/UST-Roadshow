@@ -1,0 +1,19 @@
+.single-blog{
+    #primary{
+        padding-bottom:80px;
+    }
+}
+
+.page_blog{
+    .fc_hero{
+        height:605px;
+        &:after {
+            content:none;
+        }
+    }
+    .fc_blog_list{
+        .cta{
+            display:none;
+        }
+    }
+}

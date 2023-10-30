@@ -20,6 +20,71 @@ window.onload = () => {
     activateEventPage();
 
     activateArticlesPagination();
+
+    activateBlogsPagination();
+
+    activateMediaGallery();
+}
+
+function activateMediaGallery(){
+    // Media Gallery
+    var mgs = $('.fc_media_gallery');
+
+
+    for(var i = 0; i < mgs.length; i++){
+        var mg = mgs[i];
+
+        var images = $(mg).find('.collection .gallery-item');
+
+        if( images.length >= 6){
+            var displayedIndex = 6; // Only used if there are more than 6 images
+
+            //console.log('media gallery, at least 6');
+            
+            for(var i = 0; i < displayedIndex; i++){
+                var image = $(images[i]);
+
+                image.addClass('show');
+            }
+
+            if(images.length > 6){
+                $(mg).find('.more-btn').addClass('show');
+            }
+            
+
+            // SEE MORE BUTTON
+            $(mg).find('.more-btn').on('click', function(){
+                // increment index to display
+                displayedIndex += 9;
+                
+                // run through all images and desgnate show class up to index. End process and hide "See More" button if all images are shown.
+                for(var i2 = 0; i2 < displayedIndex; i2++){
+                    if(i2 === images.length - 1){
+                        $(mg).find('.more-btn').removeClass('show');
+                        break;
+                    }
+
+                    var image = $(images[i2]);
+
+                    image.addClass('show');
+                }
+                
+            })
+        }else{
+            var displayedIndex = 6; // Only used if there are more than 6 images
+
+            //console.log('media gallery, less than 6');
+            
+            for(var i3 = 0; i3 < images.length; i3++){
+                var image = $(images[i3]);
+
+                image.addClass('show');
+            }
+        }
+
+
+    }
+
 }
 
 function markDropDownSelectorToState(state, dd){
@@ -41,8 +106,13 @@ function activateArticlesPagination(){
         var state = window.location.href.split('/');
         state = state[state.length - 2];
 
+        // Make "ALL" visible and selectable (component has it hidden and disabled by default)
+        var all = $('#states_dd #all');
+        all.removeAttr('hidden');
+        all.removeAttr('disabled');
+
         // Change first option to "ALL"
-        $($('.fc_press_article_list .dropdown form option')[0]).html('All');
+        $($('.fc_press_article_list .dropdown form #all')[0]).html('All');
 
         markDropDownSelectorToState(state, $('.fc_press_article_list .dropdown form option'));
 
@@ -187,6 +257,202 @@ function generateArticlesPagination(container, items, max){
     container.append(str);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function activateBlogsPagination(){
+
+    if( $('.fc_blog_list') ){
+        var showMaxItems = 9;
+        
+
+        var items = $('.fc_blog_list .article-item');
+
+        // Remove Pagination if not enough articles
+        if(items.length < showMaxItems){
+            $('.fc_blog_list .pagination').remove();
+        }
+
+        // Generate Markup for pagination
+        var paginationContainer = $('.fc_blog_list .pagination');
+
+
+        var prevArrowStr = '<a href="#" class="prev"><span>&lt;</span></a>';
+        paginationContainer.append(prevArrowStr);
+
+        paginationContainer.append('<div class="ellipses">...</div><div class="numbers"></div>');
+        var numbersContainer = $('.fc_blog_list .pagination .numbers');
+
+        generateBlogPagination(numbersContainer, items, showMaxItems);
+
+        var nextArrowStr = '<a href="#" class="next"><span>&gt;</span></a>';
+        paginationContainer.append(nextArrowStr);
+
+
+        // Activate ALL Pagination Buttons
+        var currentIndex = 0;
+        var totalPages = Math.ceil(items.length / showMaxItems);
+    
+
+        var pageItems = $('.fc_blog_list .pagination .page-number');
+
+        var articleIndex = 0;
+        var allArticles = $('.fc_blog_list .article-item');
+        var articleContainer = $('.fc_blog_list .article-items');
+
+        $('.fc_blog_list .pagination .prev').on('click', function(evt){
+            evt.preventDefault();
+
+            currentIndex--;
+            articleIndex -= showMaxItems;
+
+            if(currentIndex < 0){
+                currentIndex = 0;
+                articleIndex = 0;
+            }
+            
+            arrangePagination(currentIndex, totalPages, pageItems);
+            displayArticles(articleIndex, showMaxItems);
+        })
+
+        $('.fc_blog_list .pagination .next').on('click', function(evt){
+            evt.preventDefault();
+            currentIndex++;
+            articleIndex += showMaxItems;
+            
+            if(currentIndex >= totalPages){
+                currentIndex = totalPages;
+                articleIndex = (totalPages - 1) * showMaxItems;
+            }
+            
+            arrangePagination(currentIndex, totalPages, pageItems);
+            displayArticles(articleIndex, showMaxItems);
+        })
+
+        arrangePagination(currentIndex, totalPages, pageItems);
+        displayArticles(articleIndex, showMaxItems);
+
+        function displayArticles(index, max){
+            allArticles.remove();
+
+            for(var i = 0; i < max; i++){
+                var item = allArticles[index + i];
+                articleContainer.append(item);
+            }
+            
+        }
+
+        function arrangePagination(index, totalPages, pageItems){
+                
+        
+            // First, remove all buttons
+            $('.fc_blog_list .pagination .current').removeClass('current');
+            $('.fc_blog_list .pagination .page-number').remove();
+
+        
+            var numbersContainer = $('.fc_blog_list .pagination .numbers');
+        
+            // Add 'active' class to first 3 items
+            numbersContainer.append( $(pageItems[0 + index]) );
+            numbersContainer.append( $(pageItems[1 + index]) );
+            numbersContainer.append( $(pageItems[2 + index]) );
+        
+            // Append ellipses
+            // Remove Ellipses if less pages than 6
+            if(totalPages < 6 || index > totalPages - 6){
+                $('.fc_blog_list .pagination .ellipses').addClass('hide');
+            }else{
+                numbersContainer.append($('.fc_blog_list .pagination .ellipses'));
+                $('.fc_blog_list .pagination .ellipses').removeClass('hide');
+            }
+            
+            if(index > totalPages - 6){
+                numbersContainer.append( $(pageItems[pageItems.length - 6]) );
+                numbersContainer.append( $(pageItems[pageItems.length - 5]) );
+                numbersContainer.append( $(pageItems[pageItems.length - 4]) );
+            }
+        
+            // Add 'active' class to last 3 items
+            numbersContainer.append( $(pageItems[pageItems.length - 3]) );
+            numbersContainer.append( $(pageItems[pageItems.length - 2]) );
+            numbersContainer.append( $(pageItems[pageItems.length - 1]) );
+            
+            $( pageItems[index]).addClass("current");
+        
+            $('.fc_blog_list .pagination .page-number').on('click', function(evt){
+                evt.preventDefault();
+        
+                currentIndex = $(this).data('page');
+
+                articleIndex = currentIndex * showMaxItems;
+        
+                arrangePagination(currentIndex, totalPages, pageItems);
+                displayArticles(articleIndex, showMaxItems);
+        
+            })
+        }
+
+    }
+}
+
+function generateBlogPagination(container, items, max){
+    var totalPages = Math.ceil(items.length / max);
+
+
+    var str = '';
+    for(var i = 0; i < totalPages; i++){
+        str += '<a href="#" data-page="' + i + '" class="page-number"><span>' + (i + 1) + '</span></a>';
+    }
+
+    container.append(str);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function activateEventPage(){
     if( $('.single-event')[0] ){
 
@@ -221,56 +487,6 @@ function activateEventPage(){
             })
     
             markFCCarouselDots(subnav, 0);
-        }
-
-        // Media Gallery
-        if( $('.fc_media_gallery')[0] ){
-            console.log('media gallery activated');
-
-            var images = $('.fc_media_gallery .collection .gallery-item');
-
-            console.log('images', images);
-
-            if( images.length >= 6){
-                var displayedIndex = 6; // Only used if there are more than 6 images
-                
-                for(var i = 0; i < displayedIndex; i++){
-                    var image = $(images[i]);
-
-                    image.addClass('show');
-                }
-
-                $('.fc_media_gallery .more-btn').addClass('show');
-
-                // SEE MORE BUTTON
-                $('.fc_media_gallery .more-btn').on('click', function(){
-                    // increment index to display
-                    displayedIndex += 9;
-                    
-                    // run through all images and desgnate show class up to index. End process and hide "See More" button if all images are shown.
-                    for(var i2 = 0; i2 < displayedIndex; i2++){
-                        if(i2 === images.length){
-                            $('.fc_media_gallery .more-btn').removeClass('show');
-                            break;
-                        }
-
-                        var image = $(images[i2]);
-    
-                        image.addClass('show');
-                    }
-                    
-                })
-            }else{
-                var displayedIndex = 6; // Only used if there are more than 6 images
-                
-                for(var i = 0; i < images.length; i++){
-                    var image = $(images[i]);
-
-                    image.addClass('show');
-                }
-            }
-
-
         }
     }
 }
@@ -350,9 +566,14 @@ function stateSelect(evt){
 
         if( forArticles ){
             // PRESS PAGE
-            window.location.href = '/articlesbystate/' + selected.options[selected.selectedIndex].value;
-
+            if(selected.options[selected.selectedIndex].value === 'none'){
+                // Go to parent page
+                window.location.href = '/press';
             }else{
+                // Go to state's page
+                window.location.href = '/articlesbystate/' + selected.options[selected.selectedIndex].value;
+            }
+        }else{
             // STATE IMPACT PAGE
             window.location.href = '/state/' + selected.options[selected.selectedIndex].value;
         }
@@ -470,8 +691,6 @@ function activateFCPastEventsCarousels(){
     var carousels = $('.fc_past_events .schedule.carousel');
     var subs = $('.fc_past_events .subnav');
 
-    console.log('activateFCPastEventsCarousels');
-
     if(carousels.length === 0){ return; }
 
     if( carousels.length > 0){
@@ -488,7 +707,7 @@ function activateFCPastEventsCarousels(){
                 slidesToShow:3,
                 responsive:[
                     {
-                        breakpoint:768,
+                        breakpoint:1100,
                         settings:{
                             slidesToShow:2
                         }
@@ -502,7 +721,6 @@ function activateFCPastEventsCarousels(){
                 ]
             }
 
-            console.log('Past event slides in carousel: ', $(carousel).find(".item"));
 
             // If less than 3 items in carousel, don't initialize carousel. INstead label carousel with ".single" or ".double" classes
             var items = $(carousel).find(".item");
@@ -579,6 +797,14 @@ function activateFCHeroCarousels(){
     for(var i = 0; i < carousels.length; i++){
         var heroCarouselSub = heroCarouselSubs[i];
         var carousel = $(carousels[i]);
+        var carouselItems = carousel.find('.panel');
+
+        console.log('carousel items', carouselItems);
+
+        // Hide dots if only one item
+        if(carouselItems.length == 1){
+            $(heroCarouselSub).css({'display' : 'none'});
+        }
 
         var props = {
             infinite:true,

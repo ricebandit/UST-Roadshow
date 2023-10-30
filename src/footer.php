@@ -27,6 +27,7 @@
 								'container'		 => false
 							)
 						);
+						
 						?>
 				</div>
 			</div>

@@ -53,6 +53,7 @@ function roads_setup() {
 	);
 
 	register_nav_menu('menu-secondary', __('Main Social'));
+	register_nav_menu('menu-right', __('Main Right'));
 	register_nav_menu('footer-links', __('Footer Links'));
 
 

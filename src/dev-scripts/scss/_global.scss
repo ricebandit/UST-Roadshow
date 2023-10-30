@@ -80,6 +80,7 @@ html,body{
             transition: 1200ms background;
 
             span{
+                margin:0 auto;
                 position:relative;
                 z-index:1;
             }
@@ -211,8 +212,8 @@ html,body{
     }
 
     .content-container{
-        max-width:1200px;
-        width:calc(100% - 30px);
+        max-width:1170px;
+        width:calc(100% - 60px);
     }
 
     .title{
@@ -226,6 +227,105 @@ html,body{
         color:white;
         font-family: 'Open Sans', sans-serif;
     }
+}
+
+
+
+.pagination{
+    align-items:center;
+    display:flex;
+    justify-content:center;
+    margin:50px 0;
+    max-width:800px;
+    width:calc(100% - 30px);
+
+    .prev, .next{
+        display:inline-block;
+        position:relative;
+        text-decoration:none;
+
+        &:before{
+            aspect-ratio:1 / 1;
+            border:1px solid $darkblue;
+            border-radius:50px;
+            content:'';
+            left:50%;
+            opacity:0;
+            position:absolute;
+            top:50%;
+            transform:translate3d(-50%, -50%, 0);
+            transition:1200ms opacity;
+            width:20px;
+        }
+
+        span{
+            color:$darkblue;
+            display:block;
+            transform:translate3d(0, -1px, 0);
+        }
+
+        &:hover{
+            &:before{
+                opacity:1;
+                transition:250ms opacity;
+            }
+        }
+    }
+    
+    .prev{
+        margin-right:10px;
+    }
+    
+    .next{
+        margin-left:10px;
+    }
+
+    .ellipses{
+        display:inline-block;
+
+        &.hide{
+            display:none;
+        }
+    }
+
+    .page-number{
+        margin:0 5px;
+        position:relative;
+        text-decoration:none;
+
+        span{
+            color:$darkblue;
+            position:relative;
+            z-index:1;
+        }
+
+        &:before{
+            background:$darkblue;
+            bottom:-2px;
+            content:'';
+            height:2px;
+            left:0;
+            position:absolute;
+            transform-origin:0 0;
+            transform:scaleX(0);
+            transition:1200ms transform;
+            width:100%;
+        }
+
+        &:hover{
+            &:before{
+                transform:scaleX(1);
+                transition:250ms transform;
+            }
+        }
+
+        &.current{
+            span{
+                font-weight:800;
+            }
+        }
+    }
+
 }
 
 @media screen and (min-width:768px){

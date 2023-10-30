@@ -41,7 +41,7 @@ get_header();
                 <div class="dropdown">
                     <p class="label">Filter by:</p>
                     <?php
-                        get_template_part( 'template-parts/states-dropdown' );
+                        get_template_part( 'template-parts/states-dropdown', null, array('showall' => true) );
                     ?>
                 </div>
 
@@ -54,6 +54,8 @@ get_header();
                 ));
 
                 if ( $query->have_posts() ) {
+					
+					$articlepresent = false;
 
                     while ( $query->have_posts() ) { 
                         $query->the_post();
@@ -72,18 +74,25 @@ get_header();
                                 // DATE FORMATTING
                                 $date = DateTime::createFromFormat('Y-m-d H:i:s', get_post($item_id)->post_date);
                                 $formattedDate = $date->format('m/d/Y');
-
+								
+								$articlepresent = true;
                     ?>
                     <a href="<?php echo get_field('url'); ?>" target="_blank" class="article-item">
                         <p class="publisher"><?php echo get_field('publisher'); ?></p>
                         <h1 class="title"><?php echo get_field('title'); ?></h1>
                         <p class="date"><?php echo $formattedDate; ?></p>
-                        <p class="cta"><span>Read More on USTravel.com</span></p>
+                        <p class="cta"><span>Read More on USTravel.org</span></p>
                     </a>
                     <?php
                             }
                         }
                     }
+							
+							if($articlepresent === false){
+							?>
+							<div class='empty'>There aren't any articles related to this state.</div>
+							<?php
+							}
                 }
                 ?>
                 </div>
@@ -95,6 +104,8 @@ get_header();
 
 			<div class="pagination"></div>
         </section>
+        
+        <?php get_template_part( 'template-parts/fc-join' ); ?>
 
 	</main><!-- #main -->
 

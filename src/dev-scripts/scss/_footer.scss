@@ -105,10 +105,6 @@ footer{
     
                         &.icon{
                             display:block;
-    
-                            &:nth-child(2){
-                                margin-left:0;
-                            }
                         }
                     }
     
@@ -117,6 +113,12 @@ footer{
     
                         &:first-child{
                             margin-left:0;
+                        }
+
+                        &.icon.tw{
+                            svg{
+                                transform:scale(0.85);
+                            }
                         }
                     }
                 }
@@ -150,7 +152,7 @@ footer{
                 justify-content:center;
                 max-width:calc(1440px - 30px);
                 padding:31px 0;
-                width:calc(100% - 30px);
+                width:calc(100% - 60px);
 
                 .logos{
                     justify-content:flex-start;
@@ -193,7 +195,7 @@ footer{
             .content-container{
                 flex-direction:row;
                 max-width:calc(1440px - 30px);
-                width:calc(100% - 30px);
+                width:calc(100% - 60px);
 
                 .social-links{
                     ul{

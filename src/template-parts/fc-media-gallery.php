@@ -1,5 +1,6 @@
 
-<section class="fc_media_gallery <?php echo get_sub_field('additional_style_classes') ?>" style="<?php if( get_sub_field('background')){?>background:url(<?php echo get_sub_field('background')?>)no-repeat center;background-size:cover;<?php }  ?>">
+<section class="fc_media_gallery <?php echo get_sub_field('additional_style_classes') ?> <?php if( get_sub_field('background')){ echo 'bg';}?> <?php if(get_sub_field('vertical_padding') === true ){ echo 'vertical-padding';} ?>">
+    <div class="background <?php if(get_sub_field('brighten') == true){ echo 'light'; } ?>" style="<?php if( get_sub_field('background')){?>background:url(<?php echo get_sub_field('background')?>)no-repeat center;background-size:cover;<?php }  ?>"></div>
     <div class="content-container">
         <?php if(get_sub_field('title') || get_sub_field('description')){ ?>
         <div class="header">
@@ -7,7 +8,7 @@
                 <h1 class="title"><?php echo get_sub_field('title') ?></h1>
             <?php } ?>
             <?php if(get_sub_field('description')){ ?>
-                <p class="description"><?php echo get_sub_field('description') ?></p>
+                <div class="description"><?php echo get_sub_field('description') ?></div>
             <?php } ?>
         </div>
         <?php } ?>
